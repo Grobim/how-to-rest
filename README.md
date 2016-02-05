@@ -1,1 +1,5 @@
-# HowToRest
+# TBD
+
+## License
+
+MIT licensed
