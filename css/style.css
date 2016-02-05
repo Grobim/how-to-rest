@@ -6,6 +6,6 @@
 }
 
 .reveal .slides .who-am-i img:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(27, 145, 255, 0.25);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 }
