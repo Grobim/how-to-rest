@@ -91,7 +91,7 @@
           <p>Orienté <span style="color: orange;">services</span></p>
           <p>Contient <span style="color: orange;">plusieurs niveaux</span> de définition</p>
           <aside class="notes">
-            Manipule des objects et récupère des données<br /><br />
+            Manipule des objects, collections et récupère des données<br /><br />
             Un type d'architecture d'API :<br />
             - Pas une norme<br />
             - Un design d'API<br />
@@ -108,6 +108,36 @@
           <p class="fragment fade-up"><span style="color: orange;">Performant</span> <span style="font-size: 20px;">pour du texte</span> : avec une politique de cache adaptée</p>
           <p class="fragment fade-up"><span style="color: orange;">Uniforme</span> : Prévisible, self documenté (HATEOAS)</p>
           <p class="fragment fade-up"><span style="color: orange;">Portable</span> : Aujourd'hui tout le monde connait HTTP/1.1</p>
+        </section>
+        <section>
+          <section>
+            <h2>Rappel des bases</h2>
+            <p><span style="color: orange;">1 URI</span> correspond à <span style="color: orange;">1 ressource</span></p>
+            <pre><code class="http hljs" data-trim>
+GET /data/2.0/some-collection/some-id
+Host : api.example.com
+
+HTTP/1.1 200 OK
+
+{
+  hello : 'World',
+  hey   : 'Ho',
+  lets  : 'Go'
+}
+            </code></pre>
+            <p class="fragment fade-up"><span style="color:red;">PAS REST</span></p>
+            <aside class="notes">
+              Pas REST : Version dans  l'URI
+            </aside>
+          </section>
+          <section>
+            <h2>Rappel des bases</h2>
+            <p><span style="color: orange;">1 URI</span> correspond à <span style="color: orange;">1 ressource</span></p>
+            <pre><code class="http hljs" data-trim>
+GET /data/some-collection/some-id
+            </code></pre>
+            <p><span style="color:green;">REST</span></p>
+          </section>
         </section>
       </div>
 
