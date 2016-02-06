@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
     <link rel="stylesheet" href="css/reveal.css">
-    <link rel="stylesheet" href="css/theme/black.css" id="theme">
+    <link rel="stylesheet" href="css/theme/black.css">
     <link rel="stylesheet" href="css/style.css">
 
     <!-- Code syntax highlighting -->
@@ -59,22 +59,23 @@
         <section>
           <h2 style="text-decoration:none;">Designer une belle API Rest</h2>
           <ul>
-            <li>Qu'est-ce que REST ?</li>
+            <li>Qu'est-ce que REST&nbsp;?</li>
+            <li>Points forts de REST</li>
             <li>Rappel des bases</li>
             <li>Les méthodes</li>
-            <li>Abuser des headers !</li>
+            <li>Relations entre ressources : abuser des headers !</li>
             <li>Versionning</li>
             <li>Authentification</li>
           </ul>
         </section>
         <section>
           <h2>Qu'est-ce que REST ?</h2>
-          <p>Manipule <span style="color: orange;">des ressources</span></p>
-          <p class="fragment fade-up">Un <span style="color: orange;">type d'architecture</span> d'API</p>
+          <p>Un <span style="color: orange;">type d'architecture</span> d'API</p>
+          <p class="fragment fade-up">Manipule <span style="color: orange;">des objets/ressources</span></p>
           <p class="fragment fade-up">Orienté <span style="color: orange;">services</span></p>
           <p class="fragment fade-up">Contient <span style="color: orange;">plusieurs niveaux</span> de définition</p>
           <aside class="notes">
-            Manipule des objects et récupère des données<br /><br />
+            Manipule des objects, collections et récupère des données<br /><br />
             Un type d'architecture d'API :<br />
             - Pas une norme<br />
             - Un design d'API<br />
@@ -125,9 +126,9 @@ HTTP/1.1 200 OK
   lets  : 'Go'
 }
             </code></pre>
-            <p class="fragment fade-up"><span style="color:red;">PAS REST</span></p>
+            <p class="fragment fade-up"><span style="color:red;">PAS REST</span> : Une URI par version, pour <span style="color:orange;">une même resource</span></p>
             <aside class="notes">
-              Pas REST : Version dans  l'URI
+              Pas REST : Version dans l'URI
             </aside>
           </section>
           <section>
@@ -135,12 +136,23 @@ HTTP/1.1 200 OK
             <p><span style="color: orange;">1 URI</span> correspond à <span style="color: orange;">1 ressource</span></p>
             <pre><code class="http hljs" data-trim>
 GET /data/some-collection/some-id
+Host : api.example.com
+
+HTTP/1.1 200 OK
+
+{
+  hello : 'World',
+  hey   : 'Ho',
+  lets  : 'Go'
+}
             </code></pre>
             <p><span style="color:green;">REST</span></p>
           </section>
+        </section>
+        <section>
           <section>
             <h2>Rappel des bases</h2>
-            <p>Format de données en <span style="color: orange;">paramètre de requête</span> où <span style="color: orange;">dans le header</span></p>
+            <p>Format/tri/filtre/ordre de données en <span style="color: orange;">paramètre de requête</span> où <span style="color: orange;">dans le header</span></p>
             <pre><code class="http hljs" data-trim>
 GET /data/some-collection/some-id.xml
 Host : api.example.com
@@ -153,7 +165,7 @@ Host : api.example.com
           </section>
           <section>
             <h2>Rappel des bases</h2>
-            <p>Format de données en <span style="color: orange;">paramètre de requête</span> où <span style="color: orange;">dans le header</span></p>
+            <p>Format/tri/filtre/ordre de données en <span style="color: orange;">paramètre de requête</span> où <span style="color: orange;">dans le header</span></p>
             <pre><code class="http hljs" data-trim>
 GET /data/some-collection/some-id
 Host : api.example.com
@@ -168,7 +180,7 @@ Accept : application/xml,application/json;q=0.9
           </section>
           <section>
             <h2>Rappel des bases</h2>
-            <p>Format de données en <span style="color: orange;">paramètre de requête</span> où <span style="color: orange;">dans le header</span></p>
+            <p>Format/tri/filtre/ordre de données en <span style="color: orange;">paramètre de requête</span> où <span style="color: orange;">dans le header</span></p>
             <pre><code class="http hljs" data-trim>
 GET /data/some-collection/0/10/
 Host : api.example.com
@@ -178,13 +190,55 @@ Accept : application/json
           </section>
           <section>
             <h2>Rappel des bases</h2>
-            <p>Format de données en <span style="color: orange;">paramètre de requête</span> où <span style="color: orange;">dans le header</span></p>
+            <p>Format/tri/filtre/ordre de données en <span style="color: orange;">paramètre de requête</span> où <span style="color: orange;">dans le header</span></p>
             <pre><code class="http hljs" data-trim>
 GET /data/some-collection?start=0&size=10
 Host : api.example.com
 Accept : application/json
             </code></pre>
+            <pre class="fragment fade-up"><code class="http hljs" data-trim>
+HTTP/1.1 206 Partial Content
+            </code></pre>
             <p><span style="color:green;">REST</span></p>
+            <aside class="notes">
+              BONUS : Retour 206 et non 200 : Partial content
+            </aside>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>Rappel des bases</h2>
+            <p><span style="color:orange;">Pas de majuscules</span> dans l'URI, priviléger le <span style="color:orange;">tiret</span></p>
+            <pre><code class="http hljs" data-trim>
+GET /data/someCollection
+Host : api.example.com
+            </code></pre>
+            <p><span style="color:red;">Danger zone</span></p>
+            <pre><code class="http hljs" data-trim>
+GET /data/some-collection
+Host : api.example.com
+            </code></pre>
+            <p><span style="color:green;">Safe zone</span></p>
+            <aside class="notes">
+              Une URI est case-insensitive
+            </aside>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>Rappel des bases</h2>
+            <p><span style="color:orange;">Jamais de verbes</span> dans l'URI</p>
+            <pre><code class="http hljs" data-trim>
+GET /data/some-collection/some-id/get-data
+Host : api.example.com
+Accept : application/json
+            </code></pre>
+            <pre><code class="http hljs" data-trim>
+POST /data/some-collection/some-id/delete-data
+Host : api.example.com
+Accept : application/json
+            </code></pre>
+            <p class="fragment fade-up"><span style="color:red;">PAS REST</span> : Utiliser les méthodes HTTP</p>
           </section>
         </section>
       </div>
