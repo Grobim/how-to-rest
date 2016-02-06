@@ -121,7 +121,7 @@ module.exports = function(grunt) {
         livereload: true
       },
       js: {
-        files: [ 'Gruntfile.js', 'js/reveal.js', 'lib/js/scripts.js' ]
+        files: [ 'js/scripts.js' ]
       },
       css: {
         files: [ 'css/style.css' ]

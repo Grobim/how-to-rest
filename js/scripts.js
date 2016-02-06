@@ -16,6 +16,16 @@
       ]
     };
 
+  document.body.addEventListener("click", function(event) {
+    Reveal.next();
+  });
+
+  document.body.addEventListener("contextmenu", function(event) {
+    event.preventDefault();
+    Reveal.prev();
+    return false;
+  });
+
   setInterval(function() {
     details.age = moment().diff(moment([1988, 5, 21]))
 
