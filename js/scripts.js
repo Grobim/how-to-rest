@@ -9,7 +9,7 @@
       currentClient : 'Natixis',
       profession : 'Full-Stack software engineer',
       centerOfInterests : [
-        'Developpement',
+        'Web developpement',
         'Java/Javascript ♥♥♥',
         'Music player',
         'Video games'
@@ -27,7 +27,7 @@
   });
 
   setInterval(function() {
-    details.age = moment().diff(moment([1988, 5, 21]))
+    details.age = moment().diff(moment([1988, 5, 21]).hour(5).minute(20));
 
     detailTarget.innerHTML = JSON.stringify(details, null, 2);
     hljs.highlightBlock(detailTarget);
