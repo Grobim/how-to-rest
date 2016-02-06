@@ -9,7 +9,7 @@
       currentClient : 'Natixis',
       profession : 'Full-Stack software engineer',
       centerOfInterests : [
-        'Developpement',
+        'Web developpement',
         'Java/Javascript ♥♥♥',
         'Music player',
         'Video games'
