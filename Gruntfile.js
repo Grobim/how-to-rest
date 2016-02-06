@@ -123,13 +123,8 @@ module.exports = function(grunt) {
       js: {
         files: [ 'Gruntfile.js', 'js/reveal.js', 'lib/js/scripts.js' ]
       },
-      theme: {
-        files: [ 'css/theme/source/*.scss', 'css/theme/template/*.scss' ],
-        tasks: 'css-themes'
-      },
       css: {
-        files: [ 'css/reveal.scss' ],
-        tasks: 'css-core'
+        files: [ 'css/style.css' ]
       },
       livereload: {
         options: {
