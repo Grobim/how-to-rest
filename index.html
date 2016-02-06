@@ -166,6 +166,26 @@ Accept : application/xml,application/json;q=0.9
             </code></pre>
             <p><span style="color:green;">REST</span></p>
           </section>
+          <section>
+            <h2>Rappel des bases</h2>
+            <p>Format de données en <span style="color: orange;">paramètre de requête</span> où <span style="color: orange;">dans le header</span></p>
+            <pre><code class="http hljs" data-trim>
+GET /data/some-collection/0/10/
+Host : api.example.com
+Accept : application/json
+            </code></pre>
+            <p class="fragment fade-up"><span style="color:red;">PAS REST</span> : So damn many URIs</p>
+          </section>
+          <section>
+            <h2>Rappel des bases</h2>
+            <p>Format de données en <span style="color: orange;">paramètre de requête</span> où <span style="color: orange;">dans le header</span></p>
+            <pre><code class="http hljs" data-trim>
+GET /data/some-collection?start=0&size=10
+Host : api.example.com
+Accept : application/json
+            </code></pre>
+            <p><span style="color:green;">REST</span></p>
+          </section>
         </section>
       </div>
 
