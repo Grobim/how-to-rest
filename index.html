@@ -150,6 +150,18 @@ HTTP/1.1 200 OK
           </section>
         </section>
         <section>
+          <h2>Rappel des bases</h2>
+          <p>Les collection, au pluriel ou non ?</p>
+          <div class="fragment">
+            <p>Peu importe, mais <span style="color: orange;">rester consistant</span> !</p>
+            <span>/user</span><br />
+            <span>/user/1</span>
+            <p>OU</p>
+            <span>/user<span style="color: orange;">s</span></span><br />
+            <span>/user<span style="color: orange;">s</span>/1</span>
+          </div>
+        </section>
+        <section>
           <section>
             <h2>Rappel des bases</h2>
             <p>Format/tri/filtre/ordre de données en <span style="color: orange;">paramètre de requête</span> où <span style="color: orange;">dans le header</span></p>
@@ -220,7 +232,9 @@ Host : api.example.com
             </code></pre>
             <p><span style="color:green;">Safe zone</span></p>
             <aside class="notes">
-              Une URI est case-insensitive
+              Une URI est case-insensitive sur certains sites et d'autres non, préférer être consistant<br />
+              - Wikipedia l'est sur le premier caractère<br />
+              - Stackoverflow est case insensitive
             </aside>
           </section>
         </section>
@@ -239,6 +253,51 @@ Host : api.example.com
 Accept : application/json
             </code></pre>
             <p class="fragment fade-up"><span style="color:red;">PAS REST</span> : Utiliser les méthodes HTTP</p>
+          </section>
+        </section>
+        <section>
+          <h2>Les méthodes HTTP</h2>
+          <p>Les classiques (CRUD basique)</p>
+          <div>
+            <ul style="margin-left: 0px;">
+              <li>GET</li>
+              <li>DELETE</li>
+              <li>PUT</li>
+              <li>POST</li>
+            </ul>
+            <div class="fragment">
+              <p>Mais aussi</p>
+              <ul>
+                <li>PATCH</li>
+                <li>OPTIONS</li>
+                <li>HEAD</li>
+                <li>TRACE</li>
+                <li>CONNECT</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+        <section>
+          <section>
+            <h2>GET</h2>
+            <ul>
+              <li>Read du CRUD</li>
+              <li>Nullipotent</li>
+              <li>On <span style="color:orange;">récupère</span> des données</li>
+            </ul>
+          </section>
+          <section>
+            <h2>GET</h2>
+            <pre><code class="http hljs" data-trim>
+GET /data/user
+Host : api.example.com
+            </code></pre>
+            <span>Renvoie la collection d'utilisateurs (ou la collection de leur URIs)</span><br /><br />
+            <pre><code class="http hljs" data-trim>
+GET /data/user/1
+Host : api.example.com
+            </code></pre>
+            <span>Renvoie l'utilisateur avec id 1</span>
           </section>
         </section>
       </div>
