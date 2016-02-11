@@ -75,11 +75,11 @@
           <p class="fragment fade-up">Orienté <span style="color: orange;">services</span></p>
           <p class="fragment fade-up">Contient <span style="color: orange;">plusieurs niveaux</span> de définition</p>
           <aside class="notes">
-            Manipule des objects, collections et récupère des données<br /><br />
+            Manipule des objects, collections et récupère des données.<br />
             Un type d'architecture d'API :<br />
             - Pas une norme<br />
             - Un design d'API<br />
-            - Pas obligatoire<br /><br />
+            - Pas obligatoire<br />
             Plusieurs niveau de définition :<br />
             - Je ne vais pas les faire 1 à 1<br />
             - A ne pas mettre en opposition à SOAP : SOAP = rest de niveau 0
@@ -281,7 +281,7 @@ Accept : application/json
           <section>
             <h2>GET</h2>
             <ul>
-              <li>Read du CRUD</li>
+              <li><span style="color: orange;">READ</span> du CRUD</li>
               <li>Nullipotent</li>
               <li>On <span style="color:orange;">récupère</span> des données</li>
             </ul>
@@ -300,6 +300,47 @@ Host : api.example.com
             <span>Renvoie l'utilisateur avec id 1</span>
           </section>
         </section>
+        <section>
+          <section>
+            <h2>PUT</h2>
+            <ul>
+              <li><span style="color: orange;">CREATE</span> ou <span style="color: orange;">UPDATE</span> du CRUD</li>
+              <li>Idempotent</li>
+              <li>On <span style="color: orange;">crée</span> ou on <span style="color: orange;">écrase</span> les données</li>
+            </ul>
+          </section>
+          <section>
+            <h2>PUT</h2>
+            <p>
+              <span>/user</span><br />
+              <span>Écrase <span style="color: orange;">toute la collection</span> user par la collection envoyée en corps de requête</span>
+            </p>
+            <p>
+              <span>/user/1</span><br />
+              <span>Si l'utilisateur n'existe pas, la crée, sinon l'<span style="color: orange;">écrase</span></span>
+            </p>
+            <p class="fragment fade-up">
+              <span>Attention à bien envoyer la <span style="color: orange;">ressource entière</span></span><br />
+              <span>Le PUT <span style="color: orange;">ne correspond pas</span> à une <span style="color: orange;">mise à jour partielle</span></span>
+            </p>
+          </section>
+          <section>
+            <h2>PUT</h2>
+            <pre><code class="http hljs" data-trim>
+PUT /data/user/1
+Host : api.example.com
+
+{
+  "login"    : "Hello",
+  "password" : "World"
+}
+            </code></pre>
+            <p>On crée (ou remplace) l'utilisateur 1 avec <span style="color: orange;">tout le corps</span> de la requète</p>
+            <aside>
+              Si l'utilisateur avait d'autres champs comme des ROLES, on les supprime
+            </aside>
+          </section>
+        </section>
       </div>
 
     </div>
@@ -314,10 +355,11 @@ Host : api.example.com
       // Full list of configuration options available at:
       // https://github.com/hakimel/reveal.js#configuration
       Reveal.initialize({
-        controls: true,
+        controls: false,
         progress: true,
         history: true,
         center: true,
+        slideNumber: 'c/t',
 
         transition: 'convex', // none/fade/slide/convex/concave/zoom
 
