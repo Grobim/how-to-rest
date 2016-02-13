@@ -49,12 +49,35 @@
         <section class="who-am-i">
           <h2>Qui suis-je ?</h2>
           <pre><code id="detailsTarget" class="javascript hljs" data-trim></code></pre>
-          <a href="https://github.com/grobim" target="_blank">
-            <img src="images/svg/github.svg" />
-          </a>
-          <a href="https://twitter.com/grobimtiross" target="_blank" style="margin-left: 80px;">
-            <img src="images/svg/twitter.svg" />
-          </a>
+          <div>
+            <a href="https://github.com/grobim" target="_blank">
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 499.354" enable-background="new 0 0 512 499.354" xml:space="preserve" preserveAspectRatio="xMinYMin meet" width="100%" height="100%" style="width: 64px; height: 64px;">
+                <g>
+                  <path d="M255.987,0C114.615,0,0,114.622,0,256.013c0,113.103,73.333,209.064,175.07,242.892
+                    c12.814,2.371,17.475-5.514,17.475-12.321c0-6.063-0.225-22.153-0.333-43.538c-71.215,15.48-86.241-34.327-86.241-34.327
+                    c-11.644-29.563-28.429-37.436-28.429-37.436c-23.244-15.872,1.766-15.558,1.766-15.558c25.692,1.813,39.215,26.371,39.215,26.371
+                    c22.83,39.122,59.923,27.802,74.5,21.289c2.317-16.577,8.948-27.833,16.253-34.244C152.439,362.68,92.68,340.718,92.68,242.622
+                    c0-27.955,9.971-50.812,26.34-68.712c-2.619-6.445-11.42-32.475,2.516-67.733c0,0,21.49-6.882,70.407,26.263
+                    c20.407-5.705,42.311-8.555,64.083-8.638c21.744,0.089,43.654,2.933,64.09,8.638c48.878-33.145,70.334-26.263,70.334-26.263
+                    c13.974,35.259,5.179,61.288,2.551,67.733c16.41,17.9,26.308,40.757,26.308,68.712c0,98.327-59.846,119.987-116.872,126.301
+                    c9.18,7.91,17.372,23.564,17.372,47.449c0,34.205-0.314,61.808-0.314,70.205c0,6.858,4.603,14.833,17.597,12.295
+                    C438.718,464.968,512,369.09,512,256.013C512,114.622,397.385,0,255.987,0z"></path>
+                </g>
+              </svg>
+            </a>
+            <a href="https://twitter.com/grobimtiross" target="_blank" style="margin-left: 80px;">
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 416.075" enable-background="new 0 0 512 416.075" xml:space="preserve" preserveAspectRatio="xMinYMin meet" width="100%" height="100%" style="width: 64px; height: 64px;">
+                <path d="M512,49.258c-18.837,8.351-39.076,13.996-60.329,16.528c21.682-12.999,38.343-33.583,46.181-58.098
+                  c-20.292,12.032-42.784,20.785-66.699,25.479C411.997,12.766,384.693,0,354.486,0c-58.011,0-105.045,47.024-105.045,105.041
+                  c0,8.228,0.929,16.253,2.725,23.944c-87.302-4.38-164.698-46.203-216.508-109.762c-9.042,15.519-14.22,33.57-14.22,52.813
+                  c0,36.443,18.542,68.585,46.729,87.429c-17.214-0.552-33.411-5.279-47.573-13.14c-0.016,0.442-0.016,0.874-0.016,1.325
+                  c0,50.878,36.206,93.334,84.253,102.996c-8.811,2.39-18.087,3.675-27.667,3.675c-6.776,0-13.351-0.649-19.77-1.883
+                  c13.367,41.726,52.157,72.102,98.123,72.958c-35.953,28.161-81.24,44.966-130.456,44.966c-8.477,0-16.837-0.493-25.061-1.474
+                  c46.482,29.804,101.697,47.187,161.014,47.187c193.213,0,298.865-160.053,298.865-298.846c0-4.546-0.11-9.088-0.306-13.604
+                  C480.111,88.824,497.923,70.322,512,49.258z"></path>
+              </svg>
+            </a>
+          </div>
         </section>
         <section>
           <h2 style="text-decoration:none;">Designer une belle API Rest</h2>
@@ -92,11 +115,11 @@
           <p>Orienté <span style="color: orange;">services</span></p>
           <p>Contient <span style="color: orange;">plusieurs niveaux</span> de définition</p>
           <aside class="notes">
-            Manipule des objects, collections et récupère des données<br /><br />
+            Manipule des objects, collections et récupère des données.<br />
             Un type d'architecture d'API :<br />
             - Pas une norme<br />
             - Un design d'API<br />
-            - Pas obligatoire<br /><br />
+            - Pas obligatoire<br />
             Plusieurs niveau de définition :<br />
             - Je ne vais pas les faire 1 à 1<br />
             - A ne pas mettre en opposition à SOAP : SOAP = rest de niveau 0
@@ -302,6 +325,27 @@ Host : api.example.com
         </section>
         <section>
           <section>
+            <h2>DELETE</h2>
+            <ul>
+              <li><span style="color:orange;">DELETE</span> du CRUD</li>
+              <li>Idempotent</li>
+              <li>On <span style="color:orange;">supprime</span> la donnée ou on <span style="color:orange;">vide la collection</span></li>
+            </ul>
+          </section>
+          <section>
+            <h2>DELETE</h2>
+            <p>
+              <span>/user</span><br />
+              <span><span style="color:orange;">Vide</span> la collection d'utilisateur</span>
+            </p>
+            <p>
+              <span>/user/1</span><br />
+              <span><span style="color:orange;">Supprime</span> l'utilisateur ayant pour id 1</span>
+            </p>
+          </section>
+        </section>
+        <section>
+          <section>
             <h2>PUT</h2>
             <ul>
               <li><span style="color: orange;">CREATE</span> ou <span style="color: orange;">UPDATE</span> du CRUD</li>
@@ -335,10 +379,44 @@ Host : api.example.com
   "password" : "World"
 }
             </code></pre>
-            <p>On crée (ou remplace) l'utilisateur 1 avec <span style="color: orange;">tout le corps</span> de la requète</p>
-            <aside>
+            <p>On crée (ou remplace) l'utilisateur 1 à partir de <span style="color: orange;">tout le corps</span> de la requète</p>
+            <aside class="notes">
               Si l'utilisateur avait d'autres champs comme des ROLES, on les supprime
             </aside>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>POST</h2>
+            <ul>
+              <li>2 comportements <span style="color:orange;">différents</span></li>
+              <li><span style="color:orange;">Non-</span>idempotent</li>
+            </ul>
+          </section>
+          <section>
+            <h2>POST</h2>
+            <p><span>1er comportement : <span style="color:orange;">Provoque le changement</span> d'une resource</span></p>
+            <p class="fragment fade-up">
+              <span style="color:orange;">/user/1/picture</span><br />
+              <span>Si l'utilisateur a une photo, la crée. Sinon autre chose (par ex: exception/remplace/...)</span>
+            </p>
+            <p class="fragment fade-up">
+              <span style="color:orange;">/user/1/friend/5</span><br />
+              <span>Ajoute l'utilisateur 5 à sa friend list, sinon le retire</span>
+            </p>
+          </section>
+          <section>
+            <h2>POST</h2>
+            <p>
+              <span>2nd comportement : <span style="color:orange;">ajoute un élément</span> à une collection, sans définir son id</span>
+            </p>
+            <p class="fragment fade-up">
+              <span style="color:orange;">/user/1/center-of-interest</span><br />
+              <span>Ajoute un centre d'intérêt à la liste.</span>
+              <aside class="notes">
+                Si on appelle 3 fois, 3 ajouts de la resource passée en body, avec 3 ids différents
+              </aside>
+            </p>
           </section>
         </section>
       </div>
@@ -355,7 +433,7 @@ Host : api.example.com
       // Full list of configuration options available at:
       // https://github.com/hakimel/reveal.js#configuration
       Reveal.initialize({
-        controls: false,
+        controls: true,
         progress: true,
         history: true,
         center: true,
