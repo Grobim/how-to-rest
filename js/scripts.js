@@ -16,13 +16,9 @@
       ]
     };
 
-  document.body.addEventListener("click", function(event) {
-    Reveal.next();
-  });
-
   document.body.addEventListener("contextmenu", function(event) {
     event.preventDefault();
-    Reveal.prev();
+    Reveal.next();
     return false;
   });
 

@@ -1,11 +1,11 @@
-.reveal .slides .who-am-i img {
+.reveal .slides .who-am-i svg {
   height: 64px;
   background: none;
   border: none;
   box-shadow: none;
+  fill: white;
 }
 
-.reveal .slides .who-am-i img:hover {
-  background: rgba(27, 145, 255, 0.25);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+.reveal .slides .who-am-i svg:hover {
+  fill: green;
 }
