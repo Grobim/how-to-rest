@@ -98,11 +98,11 @@
           <p class="fragment fade-up">Orienté <span style="color: orange;">services</span></p>
           <p class="fragment fade-up">Contient <span style="color: orange;">plusieurs niveaux</span> de définition</p>
           <aside class="notes">
-            Manipule des objects, collections et récupère des données.<br />
             Un type d'architecture d'API :<br />
             - Pas une norme<br />
             - Un design d'API<br />
             - Pas obligatoire<br />
+            Manipule des objects, collections et récupère des données.<br />
             Plusieurs niveau de définition :<br />
             - Je ne vais pas les faire 1 à 1<br />
             - A ne pas mettre en opposition à SOAP : SOAP = rest de niveau 0
@@ -115,11 +115,11 @@
           <p>Orienté <span style="color: orange;">services</span></p>
           <p>Contient <span style="color: orange;">plusieurs niveaux</span> de définition</p>
           <aside class="notes">
-            Manipule des objects, collections et récupère des données.<br />
             Un type d'architecture d'API :<br />
             - Pas une norme<br />
             - Un design d'API<br />
             - Pas obligatoire<br />
+            Manipule des objects, collections et récupère des données.<br />
             Plusieurs niveau de définition :<br />
             - Je ne vais pas les faire 1 à 1<br />
             - A ne pas mettre en opposition à SOAP : SOAP = rest de niveau 0
@@ -417,6 +417,74 @@ Host : api.example.com
                 Si on appelle 3 fois, 3 ajouts de la resource passée en body, avec 3 ids différents
               </aside>
             </p>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>PATCH</h2>
+            <ul>
+              <li><span style="color:orange;">Non-</span>idempotent</li>
+              <li>On met à jour <span style="color: orange;">partiellement</span> des données</li>
+            </ul>
+          </section>
+          <section style="zoom: 0.9;">
+            <h2>PATCH</h2>
+            <p>Mon conseil : <span style="color: orange;">RFC 6902</span></p>
+            <pre><code class="http hljs" data-trim>
+PUT /data/user/1
+Host : api.example.com
+Content-Type: application/json-patch+json
+
+[
+  { "op": "test", "path": "/a/b/c", "value": "foo" },
+  { "op": "remove", "path": "/a/b/c" },
+  { "op": "add", "path": "/a/b/c", "value": [ "foo", "bar" ] },
+  { "op": "replace", "path": "/a/b/c", "value": 42 },
+  { "op": "move", "from": "/a/b/c", "path": "/a/b/d" },
+  { "op": "copy", "from": "/a/b/d", "path": "/a/b/e" }
+]
+            </code></pre>
+            <pre><code class="http hljs" data-trim>
+GET /data/user/1
+Host : api.example.com
+
+{
+  "a" : {
+    "b" : {
+      "d" : 42,
+      "e" : 42
+    }
+  }
+}
+            </code></pre>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>OPTIONS</h2>
+            <ul>
+              <li>Nullipotent</li>
+              <li>Retourne les <span style="color: orange;">methodes autorisées</span> à l'URI appelée</li>
+            </ul>
+          </section>
+          <section>
+            <h2>OPTIONS</h2>
+            <pre><code class="http hljs" data-trim>
+OPTIONS /data/user/1
+Host : api.example.com
+
+HTTP/1.1 204 No content
+Allow : GET,PUT,DELETE,OPTIONS,PATCH,HEAD
+            </code></pre>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>HEAD</h2>
+            <ul>
+              <li>Nullipotent</li>
+              <li>Retourne le header renvoyé <span style="color: orange;">lors d'un GET</span> à l'URI appelée</li>
+            </ul>
           </section>
         </section>
       </div>
