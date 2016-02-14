@@ -479,12 +479,38 @@ Allow : GET,PUT,DELETE,OPTIONS,PATCH,HEAD
           </section>
         </section>
         <section>
+          <h2>HEAD</h2>
+          <ul>
+            <li>Nullipotent</li>
+            <li>Retourne le header renvoyé <span style="color: orange;">lors d'un GET</span> à l'URI appelée</li>
+          </ul>
+        </section>
+        <section>
           <section>
-            <h2>HEAD</h2>
-            <ul>
-              <li>Nullipotent</li>
-              <li>Retourne le header renvoyé <span style="color: orange;">lors d'un GET</span> à l'URI appelée</li>
-            </ul>
+            <h2>Les relations entre resources</h2>
+            <p style="margin-bottom: 40px;">
+              <span>Des relations ? <span style="color: orange;">Mais pourquoi ?</span></span>
+            </p>
+            <p>
+              <span>Le niveau 3 d'une architecture REST indique qu'une telle api doit être <span style="color: orange;">self-descritive</span></span>
+            </p>
+            <p class="fragment fade-up">
+              <span>Le mot clé : <span style="color: orange;">HATEOAS</span></span><br />
+              <span>Hypermedia as the Engine of Application State</span>
+            </p>
+          </section>
+          <section>
+            <h2>Les relations entre resources</h2>
+            <p style="margin-bottom: 40px;">
+              <span>Que nous dit <span style="color: orange;">HATEOAS</span> ?</span>
+            </p>
+            <p>
+              <span>Je ne dois <span style="color: orange;">jamais</span> avoir à deviner :</span>
+              <ul>
+                <li>Comment accéder à une resource</li>
+                <li>Quelles sont les relations entre mes resources</li>
+              </ul>
+            </p>
           </section>
         </section>
       </div>
