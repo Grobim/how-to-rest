@@ -605,12 +605,8 @@ HTTP/1.1 200 OK
 
 {
   "_links": {
-    "self"            : {
-      "href" : "/data/user/1"
-    },
-    "shippingAddress" : {
-      "href" : "/data/address/29"
-    }
+    "self"            : { "href" : "/data/user/1" },
+    "shippingAddress" : { "href" : "/data/address/29" }
   },
   "_data": {
     "id"        : 1,
@@ -620,7 +616,7 @@ HTTP/1.1 200 OK
 }
             </code></pre>
           </section>
-          <section style="zoom: 0.5">
+          <section style="zoom: 0.7">
             <h2>Les relations entre ressources</h2>
             <p>
               <span>Pour une collection paginée</span>
@@ -633,40 +629,24 @@ HTTP/1.1 206 Partial Content
 
 {
   "_links": {
-    "self"  : {
-      "href" : "/data/user?start=0&size=2"
-    },
-    "next"  : {
-      "href" : "/data/user?start=2&size=2"
-    },
-    "first" : {
-      "href" : "/data/user?start=0&size=2"
-    },
-    "last"  : {
-      "href" : "/data/user?start=16&size=2"
-    },
+    "self"  : { "href" : "/data/user?start=0&size=2" },
+    "next"  : { "href" : "/data/user?start=2&size=2" },
+    "first" : { "href" : "/data/user?start=0&size=2" },
+    "last"  : { "href" : "/data/user?start=16&size=2" },
   },
   "_data": [
     {
       "_links": {
-        "self"            : {
-          "href" : "/data/user/1"
-        },
-        "shippingAddress" : {
-          "href" : "/data/address/29"
-        },
+        "self"            : { "href" : "/data/user/1" },
+        "shippingAddress" : { "href" : "/data/address/29" },
       },
       "id"        : 1,
       "firstName" : "Nicolas",
       "lastName"  : "CHALET"
     }, {
       "_links": {
-        "self"            : {
-          "href" : "/data/user/2"
-        },
-        "shippingAddress" : {
-          "href" : "/data/address/35"
-        },
+        "self"            : { "href" : "/data/user/2" },
+        "shippingAddress" : { "href" : "/data/address/35" },
       },
       "id"        : 2,
       "firstName" : "Tony",
@@ -676,7 +656,7 @@ HTTP/1.1 206 Partial Content
 }
             </code></pre>
           </section>
-          <section style="zoom: 0.6;">
+          <section style="zoom: 0.7;">
             <h2>Les relations entre ressources</h2>
             <p>
               <span>Étoffons le header</span>
@@ -691,31 +671,21 @@ Content-Range: user 0-2/18
 
 {
   "_links": {
-    "self"  : {
-      "href" : "/data/user?start=0&size=2"
-    }
+    "self"  : { "href" : "/data/user?start=0&size=2" }
   },
   "_data": [
     {
       "_links": {
-        "self"            : {
-          "href" : "/data/user/1"
-        },
-        "shippingAddress" : {
-          "href" : "/data/address/29"
-        }
+        "self"            : { "href" : "/data/user/1" },
+        "shippingAddress" : { "href" : "/data/address/29"  }
       },
       "id"        : 1,
       "firstName" : "Nicolas",
       "lastName"  : "CHALET"
     }, {
       "_links": {
-        "self"            : {
-          "href" : "/data/user/2"
-        },
-        "shippingAddress" : {
-          "href" : "/data/address/35"
-        }
+        "self"            : { "href" : "/data/user/2" },
+        "shippingAddress" : { "href" : "/data/address/35"  }
       },
       "id"        : 2,
       "firstName" : "Tony",
@@ -728,7 +698,7 @@ Content-Range: user 0-2/18
               <span>Mais on a toujours un niveau d'indentation inutile</span>
             </p>
           </section>
-          <section style="zoom: 0.7;">
+          <section style="zoom: 0.8;">
             <h2>Les relations entre ressources</h2>
             <p>
               <span><span style="color: orange;">Web Linking</span> (RFC 5988)</span>
@@ -745,24 +715,16 @@ Link: &lt;/data/user?start=0&size=2&gt;; rel="self"
 [
   {
     "_links": {
-      "self"            : {
-        "href" : "/data/user/1"
-      },
-      "shippingAddress" : {
-        "href" : "/data/address/29"
-      }
+      "self"            : { "href" : "/data/user/1" },
+      "shippingAddress" : { "href" : "/data/address/29"  }
     },
     "id"        : 1,
     "firstName" : "Nicolas",
     "lastName"  : "CHALET"
   }, {
     "_links": {
-      "self"            : {
-        "href" : "/data/user/2"
-      },
-      "shippingAddress" : {
-        "href" : "/data/address/35"
-      }
+      "self"            : { "href" : "/data/user/2" },
+      "shippingAddress" : { "href" : "/data/address/35"  }
     },
     "id"        : 2,
     "firstName" : "Tony",
