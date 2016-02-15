@@ -94,7 +94,7 @@
         <section>
           <h2>Qu'est-ce que REST ?</h2>
           <p>Un <span style="color: orange;">type d'architecture</span> d'API</p>
-          <p class="fragment fade-up">Manipule <span style="color: orange;">des objets/ressources</span></p>
+          <p class="fragment fade-up">Manipule <span style="color: orange;">des ressources/collections</span></p>
           <p class="fragment fade-up">Orienté <span style="color: orange;">services</span></p>
           <p class="fragment fade-up">Contient <span style="color: orange;">plusieurs niveaux</span> de définition</p>
           <aside class="notes">
@@ -110,7 +110,7 @@
         </section>
         <section data-transition="none" data-background="images/gif/facepalm.gif">
           <h2>Qu'est-ce que REST ?</h2>
-          <p>Manipule <span style="color: orange;">des ressources</span></p>
+          <p>Manipule <span style="color: orange;">des ressources/collections</span></p>
           <p>Un <span style="color: orange;">type d'architecture</span> d'API</p>
           <p>Orienté <span style="color: orange;">services</span></p>
           <p>Contient <span style="color: orange;">plusieurs niveaux</span> de définition</p>
@@ -149,7 +149,7 @@ HTTP/1.1 200 OK
   lets  : 'Go'
 }
             </code></pre>
-            <p class="fragment fade-up"><span style="color:red;">PAS REST</span> : Une URI par version, pour <span style="color:orange;">une même resource</span></p>
+            <p class="fragment fade-up"><span style="color:red;">PAS REST</span> : Une URI par version, pour <span style="color:orange;">une même ressource</span></p>
             <aside class="notes">
               Pas REST : Version dans l'URI
             </aside>
@@ -395,7 +395,7 @@ Host : api.example.com
           </section>
           <section>
             <h2>POST</h2>
-            <p><span>1er comportement : <span style="color:orange;">Provoque le changement</span> d'une resource</span></p>
+            <p><span>1er comportement : <span style="color:orange;">Provoque le changement</span> d'une ressource</span></p>
             <p class="fragment fade-up">
               <span style="color:orange;">/user/1/picture</span><br />
               <span>Si l'utilisateur a une photo, la crée. Sinon autre chose (par ex: exception/remplace/...)</span>
@@ -414,7 +414,7 @@ Host : api.example.com
               <span style="color:orange;">/user/1/center-of-interest</span><br />
               <span>Ajoute un centre d'intérêt à la liste.</span>
               <aside class="notes">
-                Si on appelle 3 fois, 3 ajouts de la resource passée en body, avec 3 ids différents
+                Si on appelle 3 fois, 3 ajouts de la ressource passée en body, avec 3 ids différents
               </aside>
             </p>
           </section>
@@ -487,7 +487,7 @@ Allow : GET,PUT,DELETE,OPTIONS,PATCH,HEAD
         </section>
         <section>
           <section>
-            <h2>Les relations entre resources</h2>
+            <h2>Les relations entre ressources</h2>
             <p style="margin-bottom: 40px;">
               <span>Des relations ? <span style="color: orange;">Mais pourquoi ?</span></span>
             </p>
@@ -500,21 +500,336 @@ Allow : GET,PUT,DELETE,OPTIONS,PATCH,HEAD
             </p>
           </section>
           <section>
-            <h2>Les relations entre resources</h2>
+            <h2>Les relations entre ressources</h2>
             <p style="margin-bottom: 40px;">
               <span>Que nous dit <span style="color: orange;">HATEOAS</span> ?</span>
             </p>
             <p>
               <span>Je ne dois <span style="color: orange;">jamais</span> avoir à deviner :</span>
               <ul>
-                <li>Comment accéder à une resource</li>
-                <li>Quelles sont les relations entre mes resources</li>
+                <li>Comment accéder à une ressource</li>
+                <li>Quelles sont les relations entre mes ressources</li>
               </ul>
             </p>
           </section>
         </section>
-      </div>
+        <section>
+          <section>
+            <h2>Les relations entre ressources</h2>
+            <p>
+              <span>Simple avec XML</span>
+            </p>
+            <pre><code class="http hljs" data-trim>
+GET /data/user/1
+Host : api.example.com
 
+HTTP/1.1 200 OK
+
+<?xml version="1.0" encoding="utf-8" ?>
+<user>
+  <id>1</id>
+  <firstname>CHALET</firstname>
+  <lastname>Nicolas</lastname>
+  &lt;link rel="self" href="/data/user/1" /&gt;
+  &lt;link rel="shipping-adress" href="/data/adress/29" /&gt;
+</user>
+            </code></pre>
+            <p class="fragment fade-up">XML c'est bien, si on aime la redondance ...</p>
+          </section>
+          <section style="zoom: 0.5;">
+            <h2>Les relations entre ressources</h2>
+            <p>
+              <span>Hal+json</span>
+            </p>
+            <pre><code class="json hljs" data-trim>
+{
+  "_links": {
+    "self": { "href": "/orders" },
+    "curies": [{
+      "name": "ea",
+      "href": "http://example.com/docs/rels/{rel}",
+      "templated": true
+    }],
+    "next": { "href": "/orders?page=2" },
+    "ea:find": {
+      "href": "/orders{?id}",
+      "templated": true
+    },
+    "ea:admin": [{
+      "href": "/admins/2",
+      "title": "Fred"
+    }, {
+      "href": "/admins/5",
+      "title": "Kate"
+    }]
+  },
+  "currentlyProcessing": 14,
+  "shippedToday": 20,
+  "_embedded": {
+    "ea:order": [
+      {
+        "_links": {
+          "self": { "href": "/orders/123" },
+          "ea:basket": { "href": "/baskets/98712" },
+          "ea:customer": { "href": "/customers/7809" }
+        },
+        "total": 30.00,
+        "currency": "USD",
+        "status": "shipped"
+      }, {
+        "_links": {
+          "self": { "href": "/orders/124" },
+          "ea:basket": { "href": "/baskets/97213" },
+          "ea:customer": { "href": "/customers/12369" }
+        },
+        "total": 20.00,
+        "currency": "USD",
+        "status": "processing"
+      }
+    ]
+  }
+}
+            </code></pre>
+            <p><span>Verbeux ...</span></p>
+          </section>
+          <section>
+            <h2>Les relations entre ressources</h2>
+            <p>
+              <span>Pour une ressource</span>
+            </p>
+            <pre><code class="http hljs" data-trim>
+GET /data/user/1
+Host : api.example.com
+
+HTTP/1.1 200 OK
+
+{
+  "_links": {
+    "self"            : {
+      "href" : "/data/user/1"
+    },
+    "shippingAddress" : {
+      "href" : "/data/address/29"
+    }
+  },
+  "_data": {
+    "id"        : 1,
+    "firstName" : "Nicolas",
+    "lastName"  : "CHALET"
+  }
+}
+            </code></pre>
+          </section>
+          <section style="zoom: 0.5">
+            <h2>Les relations entre ressources</h2>
+            <p>
+              <span>Pour une collection paginée</span>
+            </p>
+            <pre><code class="http hljs" data-trim>
+GET /data/user?start=0&size=2
+Host : api.example.com
+
+HTTP/1.1 206 Partial Content
+
+{
+  "_links": {
+    "self"  : {
+      "href" : "/data/user?start=0&size=2"
+    },
+    "next"  : {
+      "href" : "/data/user?start=2&size=2"
+    },
+    "first" : {
+      "href" : "/data/user?start=0&size=2"
+    },
+    "last"  : {
+      "href" : "/data/user?start=16&size=2"
+    },
+  },
+  "_data": [
+    {
+      "_links": {
+        "self"            : {
+          "href" : "/data/user/1"
+        },
+        "shippingAddress" : {
+          "href" : "/data/address/29"
+        },
+      },
+      "id"        : 1,
+      "firstName" : "Nicolas",
+      "lastName"  : "CHALET"
+    }, {
+      "_links": {
+        "self"            : {
+          "href" : "/data/user/2"
+        },
+        "shippingAddress" : {
+          "href" : "/data/address/35"
+        },
+      },
+      "id"        : 2,
+      "firstName" : "Tony",
+      "lastName"  : "STARK"
+    }
+  ]
+}
+            </code></pre>
+          </section>
+          <section style="zoom: 0.6;">
+            <h2>Les relations entre ressources</h2>
+            <p>
+              <span>Étoffons le header</span>
+            </p>
+            <pre><code class="http hljs" data-trim>
+GET /data/user?start=0&size=2
+Host : api.example.com
+
+HTTP/1.1 206 Partial Content
+Accept-Ranges: user
+Content-Range: user 0-2/18
+
+{
+  "_links": {
+    "self"  : {
+      "href" : "/data/user?start=0&size=2"
+    }
+  },
+  "_data": [
+    {
+      "_links": {
+        "self"            : {
+          "href" : "/data/user/1"
+        },
+        "shippingAddress" : {
+          "href" : "/data/address/29"
+        }
+      },
+      "id"        : 1,
+      "firstName" : "Nicolas",
+      "lastName"  : "CHALET"
+    }, {
+      "_links": {
+        "self"            : {
+          "href" : "/data/user/2"
+        },
+        "shippingAddress" : {
+          "href" : "/data/address/35"
+        }
+      },
+      "id"        : 2,
+      "firstName" : "Tony",
+      "lastName"  : "STARK"
+    }
+  ]
+}
+            </code></pre>
+            <p class="fragment fade-up">
+              <span>Mais on a toujours un niveau d'indentation inutile</span>
+            </p>
+          </section>
+          <section style="zoom: 0.7;">
+            <h2>Les relations entre ressources</h2>
+            <p>
+              <span><span style="color: orange;">Web Linking</span> (RFC 5988)</span>
+            </p>
+            <pre><code class="http hljs" data-trim>
+GET /data/user?start=0&size=2
+Host : api.example.com
+
+HTTP/1.1 206 Partial Content
+Accept-Ranges: user
+Content-range: user 0-2/18
+Link: &lt;/data/user?start=0&size=2&gt;; rel="self"
+
+[
+  {
+    "_links": {
+      "self"            : {
+        "href" : "/data/user/1"
+      },
+      "shippingAddress" : {
+        "href" : "/data/address/29"
+      }
+    },
+    "id"        : 1,
+    "firstName" : "Nicolas",
+    "lastName"  : "CHALET"
+  }, {
+    "_links": {
+      "self"            : {
+        "href" : "/data/user/2"
+      },
+      "shippingAddress" : {
+        "href" : "/data/address/35"
+      }
+    },
+    "id"        : 2,
+    "firstName" : "Tony",
+    "lastName"  : "STARK"
+  }
+]
+            </code></pre>
+          </section>
+          <section>
+            <h2>Les relations entre ressources</h2>
+            <p>
+              <span>Pour l'utilisateur</span>
+            </p>
+            <pre><code class="http hljs" data-trim>
+GET /data/user/1
+Host : api.example.com
+
+HTTP/1.1 200 OK
+Link: &lt;/data/user/1&gt;; rel="self",
+&lt;/data/address/29&gt;; rel="shippingAddress"
+
+{
+  "id"        : 1,
+  "firstName" : "Nicolas",
+  "lastName"  : "CHALET"
+}
+            </code></pre>
+          </section>
+          <section>
+            <h2>Les relations entre ressources</h2>
+            <p>
+              <span>On peut même retirer le self avec</span><br />le header <span style="color: orange;">Content-Location</span></span>
+              <pre><code class="http hljs" data-trim>
+GET /data/user/1
+Host : api.example.com
+
+HTTP/1.1 200 OK
+Content-Location: /data/user/1
+Link: &lt;/data/address/29&gt;; rel="shippingAddress"
+
+{
+  "id"        : 1,
+  "firstName" : "Nicolas",
+  "lastName"  : "CHALET"
+}
+              </code></pre>
+            </p>
+          </section>
+          <section>
+            <h2>Les relations entre ressources</h2>
+            <p>
+              <span>Maintenant la méthode <span style="color: orange;">HEAD</span> prends tout son sens, on va pouvoir <span style="color: orange;">parcourir toute l'API</span> sans requêter vraiment la ressource</span>
+            </p>
+            <pre><code class="http hljs" data-trim>
+HEAD /data
+Host : api.example.com
+
+HTTP/1.1 204 No Content
+Link: &lt;/data/user&gt;; rel="user",
+&lt;/data/address&gt;; rel="shippingAddress"
+            </code></pre>
+            <p>
+              <span>De plus, avec la méthode <span style="color: orange;">OPTIONS</span>, on saura ce qu'on peut y faire</span>
+            </p>
+          </section>
+        </section>
+      </div>
     </div>
 
     <script src="lib/js/head.min.js"></script>
