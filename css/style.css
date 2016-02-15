@@ -9,3 +9,7 @@
 .reveal .slides .who-am-i svg:hover {
   fill: green;
 }
+
+.reveal pre code {
+  max-height: none;
+}
