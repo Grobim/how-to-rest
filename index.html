@@ -791,6 +791,162 @@ Link: &lt;/data/user&gt;; rel="user",
             </p>
           </section>
         </section>
+        <section>
+          <section>
+            <h2>Versionning d'une API REST</h2>
+            <p>
+              <span>Il y a 3 façons "communes", <span style="color: orange;">aucune n'est vraiment bonne</span>, mais bon, faut bien en choisir une ...</span>
+            </p>
+            <ul>
+              <li>Dans l'URI</li>
+              <li>Dans un custom header</li>
+              <li>Dans le header Accept</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Versionning d'une API REST</h2>
+            <p>
+              <span style="color: orange;">Dans l'URI</span>
+            </p>
+            <pre><code class="http hljs" data-trim>
+GET /data/v1/user
+Host : api.example.com
+
+HTTP/1.1 200 OK
+...
+            </code></pre>
+            <pre><code class="http hljs" data-trim>
+GET /data/v2/user
+Host : api.example.com
+
+HTTP/1.1 200 OK
+...
+            </code></pre>
+          </section>
+          <section>
+            <h2>Versionning d'une API REST</h2>
+            <p>
+              <span style="color: orange;">Dans l'URI</span>
+            </p>
+            <p>
+              <span>PROS</span>
+              <ul>
+                <li>URI très "portables", un simple copier coller et on partage la bonne version</li>
+                <li>Le routing est plus simple si chaque version est concernée par une application à part entière</li>
+              </ul>
+            </p>
+            <p>
+              <span>CONS</span>
+              <ul>
+                <li>Plusieurs URIs pour une même ressource : pas REST</li>
+                <li>Sémantiquement incorrect</li>
+              </ul>
+            </p>
+          </section>
+          <section>
+            <h2>Versionning d'une API REST</h2>
+            <p>
+              <span style="color: orange;">Dans un custom header</span>
+            </p>
+            <pre><code class="http hljs" data-trim>
+GET /data/user
+Host : api.example.com
+api-version: 1
+
+HTTP/1.1 200 OK
+...
+            </code></pre>
+            <pre><code class="http hljs" data-trim>
+GET /data/user
+Host : api.example.com
+api-version: 2
+
+HTTP/1.1 200 OK
+...
+            </code></pre>
+          </section>
+          <section>
+            <h2>Versionning d'une API REST</h2>
+            <p>
+              <span style="color: orange;">Dans un custom header</span>
+            </p>
+            <p>
+              <span>PROS</span>
+              <ul>
+                <li>Cool URIs don't change</li>
+                <li>Sémantiquement 'presque' correct</li>
+              </ul>
+            </p>
+            <p>
+              <span>CONS</span>
+              <ul>
+                <li>Non portable d'un simple copier-coller</li>
+                <li>On se retrouve hors spec HTTP</li>
+              </ul>
+            </p>
+          </section>
+          <section>
+            <h2>Versionning d'une API REST</h2>
+            <p>
+              <span style="color: orange;">Dans le header Accept</span>
+            </p>
+            <pre><code class="http hljs" data-trim>
+GET /data/user
+Host : api.example.com
+Accept: application/com.myapp-v1+json
+
+HTTP/1.1 200 OK
+...
+            </code></pre>
+            <pre><code class="http hljs" data-trim>
+GET /data/user
+Host : api.example.com
+Accept: application/com.myapp-v2+json
+
+HTTP/1.1 200 OK
+...
+            </code></pre>
+          </section>
+          <section>
+            <h2>Versionning d'une API REST</h2>
+            <p>
+              <span style="color: orange;">Dans le header Accept</span>
+            </p>
+            <p>
+              <span>PROS</span>
+              <ul>
+                <li>Cool URIs don't change</li>
+                <li>Sémantiquement correct</li>
+              </ul>
+            </p>
+            <p>
+              <span>CONS</span>
+              <ul>
+                <li>Non portable d'un simple copier-coller</li>
+              </ul>
+            </p>
+          </section>
+          <section>
+            <h2>Versionning d'une API REST</h2>
+            <p>
+              <span>Que faire si l'utilisateur <span style="color: orange;">ne fournit pas</span> de version ?</span>
+            </p>
+            <ul>
+              <li>Fournir la dernière version</li>
+              <li class="fragment fade-up">Fournir la première version</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Versionning d'une API REST</h2>
+            <p>
+              <span>Mon choix personnel</span><br />
+            </p>
+            <p>
+              <span>Version dans <span style="color: orange;">le header Accept</span></span><br />
+              <span>Si pas de version demandée, <span style="color: orange;">fournir la première</span></span>
+            </p>
+          </section>
+        </section>
       </div>
     </div>
 
