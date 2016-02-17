@@ -947,6 +947,114 @@ HTTP/1.1 200 OK
             </p>
           </section>
         </section>
+        <section>
+          <section>
+            <h2>Authentification</h2>
+            <p>Les grands principes</p>
+            <ul>
+              <li>Une API doit rester stateless : <span style="color: orange;">pas de session</span></li>
+              <li>Un token encrypté et <span style="color: orange;">indécryptible côté client</span></li>
+              <li>Le token encrypté <span style="color: orange;">côté serveur</span> à l'aide d'un code secret</li>
+              <li>Une solution simple à implémenter, le token JSON : <span style="color: orange;">JWT</span></li>
+            </ul>
+          </section>
+          <section>
+            <h2>Authentification</h2>
+            <p>Etape 1 : côté <span style="color: green;">client</span>, premier appel</p>
+            <pre><code class="http hljs" data-trim>
+POST /login
+Host : api.example.com
+Accept: application/com.myapp-v1+json
+
+{
+  "name"     : 'SupAdmin',
+  "password" : 'SuPassword'
+}
+            </code></pre>
+          </section>
+          <section style="zoom: 0.9;">
+            <h2>Authentification</h2>
+            <p>Etape 2 : côté <span style="color: red;">serveur</span>, réponse</p>
+            <pre><code class="js hljs" data-trim>
+var API_SECRET = 'IKeepMySecretsLockedDown';
+
+User.findByName({name : req.body.name}, function(user) {
+  if (!user) {
+    res.json({
+      success : false,
+      message : 'User not found'
+    });
+  } else if (user.password !== req.body.password) {
+    res.json({
+      success : false,
+      message : 'Wrong password'
+    });
+  } else {
+    var token = jwt.encode(req.body, API_SECRET);
+    res.json({
+      success : true,
+      message : 'Authentificated !',
+      token   : token
+    });
+  }
+});
+            </code></pre>
+          </section>
+          <section>
+            <h2>Authentification</h2>
+            <p>Etape 3 : côté <span style="color: green;">client</span>, réception, stockage du token</p>
+            <pre><code class="http hljs" data-trim>
+HTTP/1.1 200 OK
+
+{
+  "success" : true,
+  "message" : "Authentificated",
+  "token"   : "BLAHblahBLAHblahTOKEN"
+}
+            </code></pre>
+            <div class="fragment fade-up">
+              <p>Plusieurs choix pour le stocker</p>
+              <ul>
+                <li>En cookie</li>
+                <li>En local storage</li>
+                <li>... juste en mémoire ? ...</li>
+              </ul>
+            </div>
+          </section>
+          <section>
+            <h2>Authentification</h2>
+            <p>
+              <span>Etape 4 : côté <span style="color: green;">client</span>, requête sur une resource protégée</span>
+            </p>
+            <p>
+              <span>Envoie du token à chaque requête mais encore plusieurs choix ...</span>
+              <ul>
+                <li>En paramètre de requète (?token=BLAHblah...)</li>
+                <li>En header de requête (Authorization/X-quelquechose)</li>
+              </ul>
+            </p>
+          </section>
+          <section>
+            <h2>Authentification</h2>
+            <p>
+              <span>Etape 4 : côté <span style="color: green;">client</span>, requête sur une resource protégée</span>
+            </p>
+            <pre><code class="http hljs" data-trim>
+GET /data/over-protected-data
+Host : api.example.com
+Accept: application/com.myapp-v1+json
+Authorization: JWT BLAHblahBLAHblahTOKEN
+
+HTTP/1.1 200 OK
+
+{
+  "wow"  : "suchSecret",
+  "much" : "data"
+}
+            </code></pre>
+            <div class="fragment fade-up">
+          </section>
+        </section>
       </div>
     </div>
 
