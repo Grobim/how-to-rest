@@ -1052,8 +1052,45 @@ HTTP/1.1 200 OK
   "much" : "data"
 }
             </code></pre>
-            <div class="fragment fade-up">
           </section>
+          <section>
+            <h2>Authentification</h2>
+            <p>
+              <span>Etape 5 : côté <span style="color: red;">serveur</span>, contrôle des autorisations</span>
+            </p>
+            <pre><code class="js hljs" data-trim>
+var API_SECRET = 'IKeepMySecretsLockedDown';
+
+function (req, res) {
+  var authToken = req.headers.Authorization,
+    credentials = jwt.decode(authToken, API_SECRET);
+
+  User.validate(credentials).then(function(error) {
+    if (error) {
+      res.sendStatus(401);
+    } else {
+      res.json(OverProtectedData.get());
+    }
+  });
+}
+            </code></pre>
+          </section>
+        </section>
+        <section>
+          <h2>Des question ? :)</h2>
+        </section>
+        <section>
+          <h2>Reférences</h2>
+          <ul>
+            <li><a href="https://www.ietf.org/rfc/rfc2616.txt" target="_blank">https://www.ietf.org/rfc/rfc2616.txt</a></li>
+            <li><a href="https://www.youtube.com/watch?v=OtN6SmnSS48" target="_blank">https://www.youtube.com/watch?v=OtN6SmnSS48</a></li>
+            <li><a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html" target="_blank">https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html</a></li>
+            <li><a href="http://restful-api-design.readthedocs.org/en/latest/urls.html" target="_blank">http://restful-api-design.readthedocs.org/en/latest/urls.html</a></li>
+            <li><a href="https://tools.ietf.org/html/rfc6902" target="_blank">https://tools.ietf.org/html/rfc6902</a></li>
+            <li><a href="http://www.troyhunt.com/2014/02/your-api-versioning-is-wrong-which-is.html" target="_blank">www.troyhunt.com/2014/02/your-api-versioning-is-wrong-which-is.html</a></li>
+            <li><a href="https://devdactic.com/restful-api-user-authentication-1/" target="_blank">https://devdactic.com/restful-api-user-authentication-1/</a></li>
+          </ul>
+          <p>Retrouver les slides : <a href="https://grobim.github.io/how-to-rest" target="_blank">https://grobim.github.io/how-to-rest</a></p>
         </section>
       </div>
     </div>
