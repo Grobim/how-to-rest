@@ -947,6 +947,151 @@ HTTP/1.1 200 OK
             </p>
           </section>
         </section>
+        <section>
+          <section>
+            <h2>Authentification</h2>
+            <p>Les grands principes</p>
+            <ul>
+              <li>Une API doit rester stateless : <span style="color: orange;">pas de session</span></li>
+              <li>Un token encrypté et <span style="color: orange;">indécryptible côté client</span></li>
+              <li>Le token encrypté <span style="color: orange;">côté serveur</span> à l'aide d'un code secret</li>
+              <li>Une solution simple à implémenter, le token JSON : <span style="color: orange;">JWT</span></li>
+            </ul>
+          </section>
+          <section>
+            <h2>Authentification</h2>
+            <p>Etape 1 : côté <span style="color: green;">client</span>, premier appel</p>
+            <pre><code class="http hljs" data-trim>
+POST /login
+Host : api.example.com
+Accept: application/com.myapp-v1+json
+
+{
+  "name"     : 'SupAdmin',
+  "password" : 'SuPassword'
+}
+            </code></pre>
+          </section>
+          <section style="zoom: 0.9;">
+            <h2>Authentification</h2>
+            <p>Etape 2 : côté <span style="color: red;">serveur</span>, réponse</p>
+            <pre><code class="js hljs" data-trim>
+var API_SECRET = 'IKeepMySecretsLockedDown';
+
+User.findByName({name : req.body.name}, function(user) {
+  if (!user) {
+    res.json({
+      success : false,
+      message : 'User not found'
+    });
+  } else if (user.password !== req.body.password) {
+    res.json({
+      success : false,
+      message : 'Wrong password'
+    });
+  } else {
+    var token = jwt.encode(req.body, API_SECRET);
+    res.json({
+      success : true,
+      message : 'Authentificated !',
+      token   : token
+    });
+  }
+});
+            </code></pre>
+          </section>
+          <section>
+            <h2>Authentification</h2>
+            <p>Etape 3 : côté <span style="color: green;">client</span>, réception, stockage du token</p>
+            <pre><code class="http hljs" data-trim>
+HTTP/1.1 200 OK
+
+{
+  "success" : true,
+  "message" : "Authentificated",
+  "token"   : "BLAHblahBLAHblahTOKEN"
+}
+            </code></pre>
+            <div class="fragment fade-up">
+              <p>Plusieurs choix pour le stocker</p>
+              <ul>
+                <li>En cookie</li>
+                <li>En local storage</li>
+                <li>... juste en mémoire ? ...</li>
+              </ul>
+            </div>
+          </section>
+          <section>
+            <h2>Authentification</h2>
+            <p>
+              <span>Etape 4 : côté <span style="color: green;">client</span>, requête sur une resource protégée</span>
+            </p>
+            <p>
+              <span>Envoie du token à chaque requête mais encore plusieurs choix ...</span>
+              <ul>
+                <li>En paramètre de requète (?token=BLAHblah...)</li>
+                <li>En header de requête (Authorization/X-quelquechose)</li>
+              </ul>
+            </p>
+          </section>
+          <section>
+            <h2>Authentification</h2>
+            <p>
+              <span>Etape 4 : côté <span style="color: green;">client</span>, requête sur une resource protégée</span>
+            </p>
+            <pre><code class="http hljs" data-trim>
+GET /data/over-protected-data
+Host : api.example.com
+Accept: application/com.myapp-v1+json
+Authorization: JWT BLAHblahBLAHblahTOKEN
+
+HTTP/1.1 200 OK
+
+{
+  "wow"  : "suchSecret",
+  "much" : "data"
+}
+            </code></pre>
+          </section>
+          <section>
+            <h2>Authentification</h2>
+            <p>
+              <span>Etape 5 : côté <span style="color: red;">serveur</span>, contrôle des autorisations</span>
+            </p>
+            <pre><code class="js hljs" data-trim>
+var API_SECRET = 'IKeepMySecretsLockedDown';
+
+function (req, res) {
+  var authToken = req.headers.Authorization,
+    credentials = jwt.decode(authToken, API_SECRET);
+
+  User.validate(credentials).then(function(error) {
+    if (error) {
+      res.sendStatus(401);
+    } else {
+      res.json(OverProtectedData.get());
+    }
+  });
+}
+            </code></pre>
+          </section>
+        </section>
+        <section>
+          <h2>Des question ? :)</h2>
+        </section>
+        <section>
+          <h2>Reférences</h2>
+          <ul>
+            <li><a href="https://www.ietf.org/rfc/rfc2616.txt" target="_blank">https://www.ietf.org/rfc/rfc2616.txt</a></li>
+            <li><a href="https://www.youtube.com/watch?v=OtN6SmnSS48" target="_blank">https://www.youtube.com/watch?v=OtN6SmnSS48</a></li>
+            <li><a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html" target="_blank">https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html</a></li>
+            <li><a href="http://restful-api-design.readthedocs.org/en/latest/urls.html" target="_blank">http://restful-api-design.readthedocs.org/en/latest/urls.html</a></li>
+            <li><a href="https://tools.ietf.org/html/rfc6902" target="_blank">https://tools.ietf.org/html/rfc6902</a></li>
+            <li><a href="http://www.troyhunt.com/2014/02/your-api-versioning-is-wrong-which-is.html" target="_blank">www.troyhunt.com/2014/02/your-api-versioning-is-wrong-which-is.html</a></li>
+            <li><a href="https://devdactic.com/restful-api-user-authentication-1/" target="_blank">https://devdactic.com/restful-api-user-authentication-1/</a></li>
+          </ul>
+          <p>Retrouver les slides : <a href="https://grobim.github.io/how-to-rest" target="_blank">https://grobim.github.io/how-to-rest</a></p>
+        </section>
       </div>
     </div>
 
